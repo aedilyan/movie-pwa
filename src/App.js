@@ -3,6 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  }
+
+
+  function showPosition(position) {
+    alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
