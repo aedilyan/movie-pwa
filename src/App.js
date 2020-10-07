@@ -1,63 +1,48 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import './App.css';
+import AddToHomeButton from './components/AddToHomeButton';
+import Employees from './components/Employees';
+import Location from './components/Location';
+import Home from './components/Home';
+
+
 
 function App() {
 
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  }
-
-
-  function showPosition(position) {
-    alert("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude)
-  }
-
-  useEffect(() => {
-    let deferredPrompt;
-    const addBtn = document.querySelector('.add-button');
-    addBtn && (addBtn.style.display = 'none');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent Chrome 67 and earlier from automatically showing the prompt
-      e.preventDefault();
-      // Stash the event so it can be triggered later.
-      deferredPrompt = e;
-      // Update UI to notify the user they can add to home screen
-      addBtn.style.display = 'block';
-
-      addBtn.addEventListener('click', (e) => {
-        // hide our user interface that shows our A2HS button
-        addBtn.style.display = 'none';
-        // Show the prompt
-        deferredPrompt.prompt();
-        // Wait for the user to respond to the prompt
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the A2HS prompt');
-          } else {
-            console.log('User dismissed the A2HS prompt');
-          }
-          deferredPrompt = null;
-        });
-      });
-    });
-  })
-
-
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          My Movie PWA application
-        </p>
-        <button className="add-button">Add to home screen</button>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Link to="/">Home</Link> | 
+        <Link to="/actors">Actors</Link>
+        <header className="App-header">
+          <h5>
+            Movie PWA application
+            </h5>
+          <AddToHomeButton />
+          <Location />
+
+          <Switch>
+            <Route path="/actors">
+              <Employees />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+
+        </header>
+      </div>
+    </Router >
   );
 }
 
 export default App;
+
+
