@@ -10,7 +10,6 @@ import AddToHomeButton from './components/AddToHomeButton';
 import Employees from './components/Employees';
 import Location from './components/Location';
 import Home from './components/Home';
-import logo from './logo.svg';
 
 
 function App() {
@@ -21,8 +20,7 @@ function App() {
       <div className="App">
         <Link to="/">Home</Link> |
         <Link to="/actors">Actors</Link>
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+        <header className="App-header">          
           <h5>
             Movie PWA application
             </h5>
